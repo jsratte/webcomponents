@@ -8,7 +8,7 @@
 
     class TestElement extends HTMLElement {
         connectedCallback () {
-            this.createShadowRoot();
+            this.shadowRoot = this.attachShadow();
             //this.text = this.getAttribute('text');
             this.render()
         }
