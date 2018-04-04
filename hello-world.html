@@ -57,7 +57,14 @@
         this.strong.textContent = this.who;
     };
 
+    function HelloWorldElement() {
+        return Reflect.construct(HTMLElement, [], MyElementProto.__proto__.constructor);
+    }
+
+    Object.setPrototypeOf(HelloWorldElement, HTMLElement);
+    Object.setPrototypeOf(HelloWorldElement.prototype, HTMLElement.prototype);
+
     // Registers <hello-world> in the main document
-    window.MyElement = customElements.define('hello-world', MyElementProto);
+    window.MyElement = customElements.define('hello-world', HelloWorldElement);
 })(window, document);
 </script>
