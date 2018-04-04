@@ -61,6 +61,8 @@
         return Reflect.construct(HTMLElement, [], MyElementProto.__proto__.constructor);
     }
 
+    console.log(MyElementProto);
+
     Object.setPrototypeOf(HelloWorldElement, HTMLElement);
     Object.setPrototypeOf(HelloWorldElement.prototype, HTMLElement.prototype);
 
