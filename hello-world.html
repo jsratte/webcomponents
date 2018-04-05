@@ -10,10 +10,18 @@
         render () {
             const div = document.createElement('div');
             div.classList.add('header');
-            div.innerHTML = "Hello " + this.getAttribute('who');
+            div.innerHTML = "Hello " + this.getWho();
             this.shadowRoot.appendChild(div);
         }
+
+        getWho() {
+            if(this.hasAttribute("who")) {
+                return this.getAttribute("who");
+            }
+            return "World!";
+        }
     }
+
     // Registers <hello-world> in the main document
     customElements.define('hello-world', TestElement)
 })(window, document);
