@@ -12,6 +12,8 @@
             div.classList.add('header');
             div.innerHTML = "Hello " + this.getWho();
             this.shadowRoot.appendChild(div);
+
+            console.log(this.getAttribute("test"));
         }
 
         getWho() {
