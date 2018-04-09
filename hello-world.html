@@ -4,7 +4,13 @@
     class TestElement extends HTMLElement {
         connectedCallback () {
             this.attachShadow({mode: 'open'});
-            this.render()
+            this.render();
+            document.dispatchEvent(new CustomEvent('sendNotification', {
+                title: "New notification",
+                priority: "MAJOR",
+                categoryType: "alarm",
+                message: "Notification description"
+            }));
         }
 
         render () {
