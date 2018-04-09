@@ -10,7 +10,11 @@
                     title: "New notification",
                     priority: "MAJOR",
                     categoryType: "alarm",
-                    message: "Notification description"
+                    message: "Notification description",
+                    callback : function() {
+                        console.log("test");
+                        alert("test");
+                    }
                 }
             }));
         }
