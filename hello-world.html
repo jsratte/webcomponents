@@ -5,11 +5,24 @@
         connectedCallback () {
             this.attachShadow({mode: 'open'});
             this.render();
+            this.subscribeObservable();
         }
 
         render () {
             this.renderHelloDiv();
             this.renderNotificationButton();
+            this.renderObservableButton();
+        }
+
+        subscribeObservable() {
+            this.dispatchEvent(new CustomEvent('subscribeObservable', {
+                detail: {
+                    key:"webcomponent-test",
+                    callback: function(newValue) {
+                        alert(newValue);
+                    }
+                }
+            }));
         }
 
         renderHelloDiv() {
@@ -17,6 +30,22 @@
             div.classList.add('header');
             div.innerHTML = "Hello " + this.getWho();
             this.shadowRoot.appendChild(div);
+        }
+
+        renderObservableButton() {
+            const button = document.createElement('button');
+            button.innerHTML = "Change observable";
+            this.shadowRoot.appendChild(button);
+
+            var self = this;
+            button.addEventListener("click", function() {
+                self.dispatchEvent(new CustomEvent('changeObservable', {
+                    detail: {
+                        key:"webcomponent-test",
+                        value: "test value"
+                    }
+                }));
+            });
         }
 
         renderNotificationButton() {
