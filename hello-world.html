@@ -22,7 +22,10 @@
                         var results = [{
                             id : "test",
                             name : "test-name",
-                            description : "test-description"
+                            description : "test-description",
+                            onMouseEnter : function(evt) {
+                                alert("enter");
+                            }
                         }];
                         return results;
                     }
