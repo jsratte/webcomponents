@@ -24,7 +24,10 @@
                             name : "test-name",
                             description : "test-description",
                             onMouseEnter : function(evt) {
-                                alert("enter");
+                                console.log("mouse enter");
+                            },
+                            onMouseLeave : function(evt) {
+                                console.log("mouse leave");
                             }
                         }];
                         return results;
