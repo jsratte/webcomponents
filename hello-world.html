@@ -24,9 +24,9 @@
             button.innerHTML = "Send notification";
             this.shadowRoot.appendChild(button);
 
+            var self = this;
             button.addEventListener("click", function() {
-                alert("Test");
-                this.dispatchEvent(new CustomEvent('sendNotification', {
+                self.dispatchEvent(new CustomEvent('sendNotification', {
                     detail: {
                         title: "New notification",
                         priority: "MAJOR",
