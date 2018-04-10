@@ -23,7 +23,7 @@
         renderNotificationButton() {
             const button = document.createElement('button');
             button.innerHTML = "Send notification";
-            button.addEventLstener("click", function() {
+            button.addEventListener("click", function() {
                 this.sendNotification();
             });
             this.shadowRoot.appendChild(button);
