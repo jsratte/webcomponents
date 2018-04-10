@@ -5,6 +5,7 @@
         connectedCallback () {
             this.attachShadow({mode: 'open'});
             this.render();
+            this.enableSearch();
             this.subscribeObservable();
         }
 
@@ -12,6 +13,21 @@
             this.renderHelloDiv();
             this.renderNotificationButton();
             this.renderObservableButton();
+        }
+
+        enableSearch() {
+            this.dispatchEvent(new CustomEvent('enableSearch', {
+                detail: {
+                    searchFunction: function(query) {
+                        alert("in search");
+                        var results = [{
+                            id : "test",
+                            name : "test-name",
+                            description : "test-description"
+                        }];
+                    }
+                }
+            }));
         }
 
         subscribeObservable() {
