@@ -19,12 +19,12 @@
             this.dispatchEvent(new CustomEvent('enableSearch', {
                 detail: {
                     searchFunction: function(query) {
-                        alert("in search");
                         var results = [{
                             id : "test",
                             name : "test-name",
                             description : "test-description"
                         }];
+                        return results;
                     }
                 }
             }));
