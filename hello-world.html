@@ -1,102 +1,120 @@
 <script>
-(function(window, document, undefined) {
+    (function(window, document, undefined) {
 
-    class TestElement extends HTMLElement {
-        connectedCallback () {
-            this.attachShadow({mode: 'open'});
-            this.render();
-            this.enableSearch();
-            this.subscribeObservable();
-        }
+        class TestElement extends HTMLElement {
+            connectedCallback () {
+                this.attachShadow({mode: 'open'});
+                this.render();
+                this.enableSearch();
+                this.subscribeObservable();
+            }
 
-        render () {
-            this.renderHelloDiv();
-            this.renderNotificationButton();
-            this.renderObservableButton();
-        }
+            render () {
+                this.renderHelloDiv();
+                this.renderNotificationButton();
+                this.renderObservableButton();
+            }
 
-        enableSearch() {
-            this.dispatchEvent(new CustomEvent('enableSearch', {
-                detail: {
-                    searchFunction: function(query) {
-                        var results = [{
-                            id : "test",
-                            name : "test-name",
-                            description : "test-description",
-                            onMouseEnter : function(evt) {
-                                console.log("mouse enter");
-                            },
-                            onMouseLeave : function(evt) {
-                                console.log("mouse leave");
-                            }
-                        }];
-                        return results;
+            enableSearch() {
+                this.dispatchEvent(new CustomEvent('enableSearch', {
+                    detail: {
+                        searchFunction: function(query) {
+                            var results = [{
+                                id : "test",
+                                name : "test-name",
+                                description : "test-description",
+                                onMouseEnter : function(evt) {
+                                    console.log("mouse enter");
+                                },
+                                onMouseLeave : function(evt) {
+                                    console.log("mouse leave");
+                                },
+                                actions : [
+                                    {
+                                        type : "button",
+                                        options : {
+                                            priority : 0,
+                                            hasSeparator : false
+                                        },
+                                        attributes : {
+                                            text : "test button",
+                                            icon : "mdi-alert",
+                                            tooltipText : "test tooltip",
+                                            onClick : function(event) {
+                                                alert("clicked");
+                                            },
+                                            disabled : false
+                                        }
+                                    }
+                                ]
+                            }];
+                            return results;
+                        }
                     }
-                }
-            }));
-        }
+                }));
+            }
 
-        subscribeObservable() {
-            this.dispatchEvent(new CustomEvent('subscribeObservable', {
-                detail: {
-                    key:"webcomponent-test",
-                    callback: function(newValue) {
-                        alert(newValue);
-                    }
-                }
-            }));
-        }
-
-        renderHelloDiv() {
-            const div = document.createElement('div');
-            div.classList.add('header');
-            div.innerHTML = "Hello " + this.getWho();
-            this.shadowRoot.appendChild(div);
-        }
-
-        renderObservableButton() {
-            const button = document.createElement('button');
-            button.innerHTML = "Change observable";
-            this.shadowRoot.appendChild(button);
-
-            var self = this;
-            button.addEventListener("click", function() {
-                self.dispatchEvent(new CustomEvent('changeObservable', {
+            subscribeObservable() {
+                this.dispatchEvent(new CustomEvent('subscribeObservable', {
                     detail: {
                         key:"webcomponent-test",
-                        value: "test value"
+                        callback: function(newValue) {
+                            alert(newValue);
+                        }
                     }
                 }));
-            });
-        }
-
-        renderNotificationButton() {
-            const button = document.createElement('button');
-            button.innerHTML = "Send notification";
-            this.shadowRoot.appendChild(button);
-
-            var self = this;
-            button.addEventListener("click", function() {
-                self.dispatchEvent(new CustomEvent('sendNotification', {
-                    detail: {
-                        title: "New notification",
-                        priority: "MAJOR",
-                        categoryType: "alarm",
-                        message: "Notification description"
-                    }
-                }));
-            });
-        }
-
-        getWho() {
-            if(this.hasAttribute("who")) {
-                return this.getAttribute("who");
             }
-            return "World!";
-        }
-    }
 
-    // Registers <hello-world> in the main document
-    customElements.define('hello-world', TestElement)
-})(window, document);
+            renderHelloDiv() {
+                const div = document.createElement('div');
+                div.classList.add('header');
+                div.innerHTML = "Hello " + this.getWho();
+                this.shadowRoot.appendChild(div);
+            }
+
+            renderObservableButton() {
+                const button = document.createElement('button');
+                button.innerHTML = "Change observable";
+                this.shadowRoot.appendChild(button);
+
+                var self = this;
+                button.addEventListener("click", function() {
+                    self.dispatchEvent(new CustomEvent('changeObservable', {
+                        detail: {
+                            key:"webcomponent-test",
+                            value: "test value"
+                        }
+                    }));
+                });
+            }
+
+            renderNotificationButton() {
+                const button = document.createElement('button');
+                button.innerHTML = "Send notification";
+                this.shadowRoot.appendChild(button);
+
+                var self = this;
+                button.addEventListener("click", function() {
+                    self.dispatchEvent(new CustomEvent('sendNotification', {
+                        detail: {
+                            title: "New notification",
+                            priority: "MAJOR",
+                            categoryType: "alarm",
+                            message: "Notification description"
+                        }
+                    }));
+                });
+            }
+
+            getWho() {
+                if(this.hasAttribute("who")) {
+                    return this.getAttribute("who");
+                }
+                return "World!";
+            }
+        }
+
+        // Registers <hello-world> in the main document
+        customElements.define('hello-world', TestElement)
+    })(window, document);
 </script>
