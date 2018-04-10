@@ -24,20 +24,16 @@
             const button = document.createElement('button');
             button.innerHTML = "Send notification";
             button.addEventListener("click", function() {
-                this.sendNotification();
+                this.dispatchEvent(new CustomEvent('sendNotification', {
+                    detail: {
+                        title: "New notification",
+                        priority: "MAJOR",
+                        categoryType: "alarm",
+                        message: "Notification description"
+                    }
+                }));
             });
             this.shadowRoot.appendChild(button);
-        }
-
-        sendNotification() {
-            this.dispatchEvent(new CustomEvent('sendNotification', {
-                detail: {
-                    title: "New notification",
-                    priority: "MAJOR",
-                    categoryType: "alarm",
-                    message: "Notification description"
-                }
-            }));
         }
 
         getWho() {
